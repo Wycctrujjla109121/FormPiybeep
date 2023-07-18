@@ -19,7 +19,7 @@ export function Services() {
     const onSubmit = (async (data: any) => {
         console.log(data)
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services`, { ...data })
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services`, data)
             setIsVisibile(response.data)
         } catch (error: any) {
             setIsVisibile(error.message)
@@ -31,16 +31,9 @@ export function Services() {
             <Controller
                 control={control}
                 name="name"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='Название услуги'
                             onChange={onChange}
                         />
@@ -54,31 +47,20 @@ export function Services() {
                     <div className={s.form__info}>
                         <div className={s.form__editor}>
                             <MDEditor
+                                height='100%'
                                 value={value}
                                 onChange={onChange}
                             />
                         </div>
-                        <Input
-                            value={value && value}
-                            placeholder='описание'
-                            onChange={onChange}
-                        />
                     </div>
                 )}
             />
             <Controller
                 control={control}
                 name="price"
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='цена'
                             onChange={onChange}
                         />
@@ -88,16 +70,9 @@ export function Services() {
             <Controller
                 control={control}
                 name="discount"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='цена со скидкой'
                             onChange={onChange}
                         />
@@ -107,16 +82,9 @@ export function Services() {
             <Controller
                 control={control}
                 name="typeId"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='id типа'
                             onChange={onChange}
                         />
@@ -128,17 +96,9 @@ export function Services() {
                 name="isHide"
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
-                        <Input
-                            value={value && value}
-                            placeholder='скрытая из общего списка'
-                            onChange={onChange}
-                        />
+                        <h1>Скрыто из списка</h1>
+                        <input type='checkbox' onChange={onChange} />
+                        <p>{String(value)}</p>
                     </div>
                 )}
             />
@@ -147,17 +107,9 @@ export function Services() {
                 name="isAvailable"
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
-                        <Input
-                            value={value && value}
-                            placeholder='доступна для заказа'
-                            onChange={onChange}
-                        />
+                        <h1>доступна для заказа</h1>
+                        <input type='checkbox' onChange={onChange} />
+                        <p>{String(value)}</p>
                     </div>
                 )}
             />

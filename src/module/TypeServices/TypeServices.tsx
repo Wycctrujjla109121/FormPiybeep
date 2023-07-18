@@ -18,7 +18,7 @@ export function TypeServices() {
     const onSubmit = (async (data: any) => {
         console.log(data)
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services/types`, {name: data.name})
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services/types`, { name: data.name })
             setIsVisibile(response.data)
         } catch (error: any) {
             setIsVisibile(error.message)
@@ -32,12 +32,6 @@ export function TypeServices() {
                 name="name"
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
                             value={value && value}
                             placeholder='название типа'

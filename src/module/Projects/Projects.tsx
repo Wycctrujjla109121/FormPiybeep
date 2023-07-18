@@ -19,7 +19,7 @@ export function Projects() {
     const onSubmit = (async (data: any) => {
         console.log(data)
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}projects`, { ...data })
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}projects`, data)
             setIsVisibile(response.data)
         } catch (error: any) {
             setIsVisibile(error.message)
@@ -31,16 +31,9 @@ export function Projects() {
             <Controller
                 control={control}
                 name="title"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='заголовок'
                             onChange={onChange}
                         />
@@ -50,16 +43,9 @@ export function Projects() {
             <Controller
                 control={control}
                 name="subtitle"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='подзаголовк'
                             onChange={onChange}
                         />
@@ -69,37 +55,23 @@ export function Projects() {
             <Controller
                 control={control}
                 name="preview_image"
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
-                            <Input
-                                textarea={false}
-                                value={value && value}
-                                type='file'
-                                placeholder='обложка'
-                                onChange={onChange}
-                            />
+                        <Input
+                            textarea={false}
+                            type='file'
+                            placeholder='обложка'
+                            onChange={onChange}
+                        />
                     </div>
                 )}
             />
             <Controller
                 control={control}
                 name="customer"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='заказчик'
                             onChange={onChange}
                         />
@@ -109,14 +81,8 @@ export function Projects() {
             <Controller
                 control={control}
                 name="access"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <div className={s.form__selectors}>
                             <h2>доступ (селектор: work, not_work, beta, closed)</h2>
                             <select className={s.form__select} onChange={onChange}>
@@ -132,16 +98,9 @@ export function Projects() {
             <Controller
                 control={control}
                 name="link"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='ссылка на проект'
                             onChange={onChange}
                         />
@@ -151,16 +110,9 @@ export function Projects() {
             <Controller
                 control={control}
                 name="task"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='задача проекта'
                             onChange={onChange}
                         />
@@ -170,16 +122,9 @@ export function Projects() {
             <Controller
                 control={control}
                 name="about_company"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder=' о компании'
                             onChange={onChange}
                         />
@@ -189,16 +134,9 @@ export function Projects() {
             <Controller
                 control={control}
                 name="about_service"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                            value={value && value}
                             placeholder='о сервисе'
                             onChange={onChange}
                         />
@@ -212,15 +150,11 @@ export function Projects() {
                     <div className={s.form__info}>
                         <div className={s.form__editor}>
                             <MDEditor
+                                height='100%'
                                 value={value}
                                 onChange={onChange}
                             />
                         </div>
-                        <Input
-                            value={value && value}
-                            placeholder='полное описание проекта'
-                            onChange={onChange}
-                        />
                     </div>
                 )}
             />

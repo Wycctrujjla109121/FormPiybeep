@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 import axios from 'axios';
 import { Controller, useForm } from 'react-hook-form'
-import MDEditor from '@uiw/react-md-editor';
 
 import { Input } from '@/components';
 
@@ -18,8 +17,10 @@ export function LoadFile() {
 
     const onSubmit = (async (data: any) => {
         console.log(data)
+        let formData = new FormData()
+        formData.append('file', data.file)
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}files`, {file: data.file})
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}files`, formData)
             setIsVisibile(response.data)
         } catch (error: any) {
             setIsVisibile(error.message)
@@ -31,18 +32,11 @@ export function LoadFile() {
             <Controller
                 control={control}
                 name="file"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <div className={s.form__editor}>
-                            <MDEditor
-                                value={value}
-                                onChange={onChange}
-                            />
-                        </div>
                         <Input
-                        textarea={false}
+                            textarea={false}
                             type='file'
-                            value={value && value}
                             placeholder='поле выбора файла'
                             onChange={onChange}
                         />
