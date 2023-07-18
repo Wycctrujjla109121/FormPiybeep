@@ -77,12 +77,13 @@ export function Projects() {
                                 onChange={onChange}
                             />
                         </div>
-                        <Input
-                            value={value && value}
-                            type='file'
-                            placeholder='обложка'
-                            onChange={onChange}
-                        />
+                            <Input
+                                textarea={false}
+                                value={value && value}
+                                type='file'
+                                placeholder='обложка'
+                                onChange={onChange}
+                            />
                     </div>
                 )}
             />

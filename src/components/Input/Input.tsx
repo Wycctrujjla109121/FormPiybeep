@@ -10,7 +10,8 @@ export function Input({ type = 'text', textarea = true, placeholder, ...props }:
             {
                 textarea
                     ?
-                    <textarea className={s.wrapper__input} {...props}></textarea>
+                    //@ts-ignore
+                    <textarea className={s.wrapper__input} {...props} placeholder={placeholder}></textarea>
                     :
                     <input {...props} className={s.wrapper__input} type={type} placeholder={placeholder} />
             }
