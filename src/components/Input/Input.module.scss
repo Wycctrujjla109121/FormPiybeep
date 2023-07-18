@@ -1,0 +1,31 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+
+    width: 100%;
+
+    &__span {
+        font-size: 18px;
+    }
+
+    &__input {
+        font-size: 24px;
+
+        border: none;
+        outline: none;
+
+        border-bottom: 1.5px solid aqua;
+
+        width: 100%;
+
+        resize: vertical;
+        max-height: 200px;
+
+        &:focus {
+            &::placeholder {
+                color: transparent;
+            }
+        }
+    }
+}

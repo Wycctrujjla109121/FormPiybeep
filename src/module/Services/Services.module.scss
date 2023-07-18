@@ -1,0 +1,46 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    width: 100%;
+    max-width: 1100px;
+
+    &__info{
+        display: flex;
+        align-items: center;
+        column-gap: 40px;
+
+        max-height: 250px;
+    }
+
+    &__editor{
+        width: 100%;
+        max-width: 500px;
+
+        max-height: 200px;
+    }
+
+    &__selectors{
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
+    }
+
+    &__select {
+        font-size: 24px;
+
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+.info{
+    width: 100%;
+    height: auto;
+}
+
+.title{
+    font-size: 48px;
+    text-align: center;
+}
