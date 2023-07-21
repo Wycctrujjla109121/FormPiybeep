@@ -38,7 +38,9 @@ export function LoadFile() {
                             textarea={false}
                             type='file'
                             placeholder='поле выбора файла'
-                            onChange={onChange}
+                            onChange={(event) => {
+                                onChange(event.target.files[0]);
+                            }}
                         />
                     </div>
                 )}
