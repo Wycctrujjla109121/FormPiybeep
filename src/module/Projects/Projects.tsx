@@ -82,6 +82,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="access"
+                defaultValue={'work'}
                 render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
                         <div className={s.form__selectors}>
