@@ -12,7 +12,7 @@ import s from './Services.module.scss'
 
 export function Services() {
 
-    const [isVisibile, setIsVisibile] = useState()
+    const [isVisibile, setIsVisibile] = useState<string>()
 
     const { control, handleSubmit } = useForm()
 
@@ -20,7 +20,7 @@ export function Services() {
         console.log(data)
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services`, data)
-            setIsVisibile(response.data)
+            setIsVisibile(JSON.stringify(response.data))
         } catch (error: any) {
             setIsVisibile(error.message)
         }

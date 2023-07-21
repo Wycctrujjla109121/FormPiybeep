@@ -12,15 +12,15 @@ import s from './Projects.module.scss'
 
 export function Projects() {
 
-    const [isVisibile, setIsVisibile] = useState()
+    const [isVisibile, setIsVisibile] = useState<string>()
 
     const { control, handleSubmit } = useForm()
 
     const onSubmit = (async (data: any) => {
         console.log(data)
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}projects`, data)
-            setIsVisibile(response.data)
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}projects`, { ...data, preview_image: `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` })
+            setIsVisibile(JSON.stringify(response.data))
         } catch (error: any) {
             setIsVisibile(error.message)
         }
@@ -59,7 +59,7 @@ export function Projects() {
                     <div className={s.form__info}>
                         <Input
                             textarea={false}
-                            type='file'
+                            type='text'
                             placeholder='обложка'
                             onChange={onChange}
                         />

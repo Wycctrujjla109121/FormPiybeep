@@ -11,7 +11,7 @@ import s from './LoadFile.module.scss'
 
 export function LoadFile() {
 
-    const [isVisibile, setIsVisibile] = useState<any>()
+    const [isVisibile, setIsVisibile] = useState<string>()
 
     const { control, handleSubmit } = useForm()
 
