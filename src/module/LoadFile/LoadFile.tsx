@@ -21,7 +21,7 @@ export function LoadFile() {
         formData.append('file', data.file)
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}files`, formData)
-            setIsVisibile(response.data)
+            setIsVisibile(JSON.stringify(response.data))
         } catch (error: any) {
             setIsVisibile(error.message)
         }
