@@ -11,7 +11,7 @@ import s from './LoadFile.module.scss'
 
 export function LoadFile() {
 
-    const [isVisibile, setIsVisibile] = useState()
+    const [isVisibile, setIsVisibile] = useState<any>()
 
     const { control, handleSubmit } = useForm()
 
@@ -21,7 +21,7 @@ export function LoadFile() {
         formData.append('file', data.file)
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}files`, formData)
-            console.log(response.data)
+            setIsVisibile(response.data)
         } catch (error: any) {
             setIsVisibile(error.message)
         }
