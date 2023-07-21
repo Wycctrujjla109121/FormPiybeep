@@ -14,14 +14,14 @@ export function Services() {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
-    const { control, handleSubmit } = useForm()
+    const { control, handleSubmit, reset } = useForm()
 
     const onSubmit = (async (data: any) => {
-        console.log(data)
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services`,
                 { ...data, price: Number(data.price), discount: Number(data.discount) })
             setIsVisibile(JSON.stringify(response.data))
+            reset()
         } catch (error: any) {
             setIsVisibile(error.message)
         }
@@ -32,6 +32,7 @@ export function Services() {
             <Controller
                 control={control}
                 name="name"
+                defaultValue={''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -61,13 +62,13 @@ export function Services() {
             <Controller
                 control={control}
                 name="price"
+                defaultValue={''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
                             textarea={false}
                             type='number'
                             value={value}
-
                             placeholder='цена'
                             onChange={onChange}
                         />
@@ -77,6 +78,7 @@ export function Services() {
             <Controller
                 control={control}
                 name="discount"
+                defaultValue={''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -110,7 +112,7 @@ export function Services() {
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
                         <h1>Скрыто из списка</h1>
-                        <input type='checkbox' value={value} onChange={onChange} />
+                        <input type='checkbox' checked={value} onChange={onChange} />
                         <p>{String(value)}</p>
                     </div>
                 )}
@@ -122,7 +124,7 @@ export function Services() {
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
                         <h1>доступна для заказа</h1>
-                        <input type='checkbox' value={value} onChange={onChange} />
+                        <input type='checkbox' checked={value} onChange={onChange} />
                         <p>{String(value)}</p>
                     </div>
                 )}

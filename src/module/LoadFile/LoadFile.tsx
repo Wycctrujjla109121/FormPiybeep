@@ -13,7 +13,7 @@ export function LoadFile() {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
-    const { control, handleSubmit } = useForm()
+    const { control, handleSubmit, reset } = useForm()
 
     const onSubmit = (async (data: any) => {
         console.log(data)
@@ -25,6 +25,7 @@ export function LoadFile() {
         } catch (error: any) {
             setIsVisibile(error.message)
         }
+        reset()
     })
 
     return (

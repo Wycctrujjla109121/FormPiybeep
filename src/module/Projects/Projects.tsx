@@ -14,7 +14,7 @@ export function Projects() {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
-    const { control, handleSubmit } = useForm()
+    const { control, handleSubmit, reset } = useForm()
 
     const onSubmit = (async (data: any) => {
         console.log({ ...data, preview_image: `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` })
@@ -22,6 +22,7 @@ export function Projects() {
             console.log()
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}projects`, { ...data, preview_image: `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` })
             setIsVisibile(JSON.stringify(response.data))
+            reset()
         } catch (error: any) {
             setIsVisibile(error.message)
         }
@@ -32,9 +33,11 @@ export function Projects() {
             <Controller
                 control={control}
                 name="title"
-                render={({ field: { onChange } }) => (
+                defaultValue={''}
+                render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
+                            value={value}
                             placeholder='заголовок'
                             onChange={onChange}
                         />
@@ -44,9 +47,11 @@ export function Projects() {
             <Controller
                 control={control}
                 name="subtitle"
-                render={({ field: { onChange } }) => (
+                defaultValue={''}
+                render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
+                            value={value}
                             placeholder='подзаголовк'
                             onChange={onChange}
                         />
@@ -56,9 +61,11 @@ export function Projects() {
             <Controller
                 control={control}
                 name="preview_image"
-                render={({ field: { onChange } }) => (
+                defaultValue={''}
+                render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
+                            value={value}
                             textarea={false}
                             type='text'
                             placeholder='обложка'
@@ -70,9 +77,11 @@ export function Projects() {
             <Controller
                 control={control}
                 name="customer"
-                render={({ field: { onChange } }) => (
+                defaultValue={''}
+                render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
+                            value={value}
                             placeholder='заказчик'
                             onChange={onChange}
                         />
@@ -83,11 +92,11 @@ export function Projects() {
                 control={control}
                 name="access"
                 defaultValue={'work'}
-                render={({ field: { onChange } }) => (
+                render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <div className={s.form__selectors}>
                             <h2>доступ (селектор: work, not_work, beta, closed)</h2>
-                            <select className={s.form__select} onChange={onChange}>
+                            <select className={s.form__select} value={value} onChange={onChange}>
                                 <option value="work">work</option>
                                 <option value="not_work">not_work</option>
                                 <option value="beta">beta</option>
@@ -100,9 +109,11 @@ export function Projects() {
             <Controller
                 control={control}
                 name="link"
-                render={({ field: { onChange } }) => (
+                defaultValue={''}
+                render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
+                            value={value}
                             placeholder='ссылка на проект'
                             onChange={onChange}
                         />
@@ -112,9 +123,11 @@ export function Projects() {
             <Controller
                 control={control}
                 name="task"
-                render={({ field: { onChange } }) => (
+                defaultValue={''}
+                render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
+                            value={value}
                             placeholder='задача проекта'
                             onChange={onChange}
                         />
@@ -124,9 +137,11 @@ export function Projects() {
             <Controller
                 control={control}
                 name="about_company"
-                render={({ field: { onChange } }) => (
+                defaultValue={''}
+                render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
+                            value={value}
                             placeholder=' о компании'
                             onChange={onChange}
                         />
@@ -136,9 +151,11 @@ export function Projects() {
             <Controller
                 control={control}
                 name="about_service"
-                render={({ field: { onChange } }) => (
+                defaultValue={''}
+                render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
+                            value={value}
                             placeholder='о сервисе'
                             onChange={onChange}
                         />
@@ -148,6 +165,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="text"
+                defaultValue={''}
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
                         <div className={s.form__editor}>
