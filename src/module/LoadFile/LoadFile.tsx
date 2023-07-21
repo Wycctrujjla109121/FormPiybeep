@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { InputHTMLAttributes, useState } from 'react';
 
 import axios from 'axios';
 import { Controller, useForm } from 'react-hook-form'
@@ -38,7 +38,7 @@ export function LoadFile() {
                             textarea={false}
                             type='file'
                             placeholder='поле выбора файла'
-                            onChange={(event) => {
+                            onChange={(event: any) => {
                                 onChange(event.target.files[0]);
                             }}
                         />
