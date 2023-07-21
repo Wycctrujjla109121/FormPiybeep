@@ -3,7 +3,7 @@
 import s from './Input.module.scss'
 import { InputProps } from './Input.types';
 
-export function Input({ type = 'text', textarea = true, placeholder, ...props }: InputProps) {
+export function Input({ type = 'text', textarea = false, placeholder, ...props }: InputProps) {
     return (
         <div className={s.wrapper}>
             <span className={s.wrapper__span}>{placeholder}</span>

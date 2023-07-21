@@ -14,7 +14,7 @@ export function Services() {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
-    const { control, handleSubmit, reset } = useForm()
+    const { control, handleSubmit } = useForm()
 
     const onSubmit = (async (data: any) => {
         console.log(data)
@@ -22,7 +22,6 @@ export function Services() {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services`,
                 { ...data, price: Number(data.price), discount: Number(data.discount) })
             setIsVisibile(JSON.stringify(response.data))
-            reset()
         } catch (error: any) {
             setIsVisibile(error.message)
         }
@@ -81,7 +80,7 @@ export function Services() {
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
-
+                            type='number'
                             value={value}
                             placeholder='цена со скидкой'
                             onChange={onChange}
