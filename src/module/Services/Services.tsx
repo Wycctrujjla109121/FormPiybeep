@@ -45,6 +45,7 @@ export function Services() {
                 name="description"
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
+                        <h2>Описание</h2>
                         <div className={s.form__editor}>
                             <MDEditor
                                 height='100%'
@@ -82,18 +83,22 @@ export function Services() {
             <Controller
                 control={control}
                 name="typeId"
+                defaultValue={'service'}
                 render={({ field: { onChange } }) => (
                     <div className={s.form__info}>
-                        <Input
-                            placeholder='id типа'
-                            onChange={onChange}
-                        />
+                        <h1>Тип</h1>
+                        <select onChange={onChange}>
+                            <option value="service">service</option>
+                            <option value="suppot">suppot</option>
+                            <option value="other">other</option>
+                        </select>
                     </div>
                 )}
             />
             <Controller
                 control={control}
                 name="isHide"
+                defaultValue={false}
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
                         <h1>Скрыто из списка</h1>
@@ -104,6 +109,7 @@ export function Services() {
             />
             <Controller
                 control={control}
+                defaultValue={false}
                 name="isAvailable"
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
