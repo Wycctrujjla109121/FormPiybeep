@@ -2,7 +2,7 @@ import { Reviews } from "@/module";
 import axios from "axios";
 
 export default async function page(props: any) {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_HOST}review/${props.params.id}`)
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_HOST}reviews/${props.params.id}`)
 
     return (
         <>
