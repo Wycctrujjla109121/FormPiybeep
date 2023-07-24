@@ -11,7 +11,7 @@ import { Input } from '@/components';
 import s from './Services.module.scss'
 import { ServiceProps } from './Services.types';
 
-export function Services({ service }: { service: ServiceProps }) {
+export function Services({ service }: { service?: ServiceProps }) {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
