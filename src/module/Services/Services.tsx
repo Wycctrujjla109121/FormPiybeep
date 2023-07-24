@@ -29,7 +29,7 @@ export function Services({ service }: { service?: ServiceProps }) {
                         discount: 'discount' in newData ? Number(data.discount) : undefined
                     })
                 setIsVisibile(JSON.stringify(response.data))
-                reset()
+                window.location.reload()
             } catch (error: any) {
                 setIsVisibile(error.message)
             }
