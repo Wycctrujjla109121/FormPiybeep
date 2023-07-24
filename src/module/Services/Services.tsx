@@ -168,7 +168,7 @@ export function Services({ service }: { service?: ServiceProps }) {
                     {
                         res &&
                         Object.entries(res).map((current) => (
-                            <p key={current[0]} className={s.list__item}>{current[0] + ' ' + current[1]}</p>
+                            <p key={current[0]} className={s.list__item}>{current[0] + ': ' + current[1]}</p>
                         ))
                     }
                 </div>

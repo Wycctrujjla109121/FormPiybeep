@@ -12,7 +12,8 @@ import { ReviewProps } from "./Review.types";
 
 export function Reviews({ review }: { review?: ReviewProps }) {
 
-    const [isVisibile, setIsVisibile] = useState<string>()
+    const [error, setError] = useState<string>()
+    const [res, setRes] = useState<object>()
 
     const { control, handleSubmit, reset, formState: { dirtyFields } } = useForm()
 
@@ -23,20 +24,20 @@ export function Reviews({ review }: { review?: ReviewProps }) {
             console.log(newData)
             try {
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}reviews`, { ...newData })
-                setIsVisibile(JSON.stringify(response.data))
+                setRes(response.data)
                 reset()
             } catch (error: any) {
-                setIsVisibile(error.message)
+                setError(error.message)
             }
         }
         let newData: any = {}
         for (let i in data) if (i in dirtyFields) newData[i] = data[i]
         try {
             const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}reviews/${review?.id}`, { ...newData })
-            setIsVisibile(JSON.stringify(response.data))
+            setRes(response.data)
             window.location.reload()
         } catch (error: any) {
-            console.error(error.message)
+            setError(error.message)
         }
     })
 
@@ -85,7 +86,21 @@ export function Reviews({ review }: { review?: ReviewProps }) {
                 )}
             />
             <button className={s.form__button} type='submit'>Сохранить</button>
-            <h1 className={s.title}>{isVisibile}</h1>
+            <div className={s.list}>
+                <h2 className={s.list__error} style={{ display: error ? 'flex' : 'none' }}>
+                    <span className={s.list__span}>Ошибка:</span>
+                    <span className={s.list__span}>{error}</span>
+                </h2>
+                <div className={s.list__info} style={{ display: res ? 'flex' : 'none' }}>
+                    <h1 className={s.list__title}>Данные: </h1>
+                    {
+                        res &&
+                        Object.entries(res).map((current) => (
+                            <p key={current[0]} className={s.list__item}>{current[0] + ': ' + current[1]}</p>
+                        ))
+                    }
+                </div>
+            </div>
         </form>
     );
 };
