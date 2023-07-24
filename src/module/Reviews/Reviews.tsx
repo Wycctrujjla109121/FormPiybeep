@@ -24,7 +24,7 @@ export function Reviews({ review }: { review?: ReviewProps }) {
             try {
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}reviews`, { ...newData })
                 setIsVisibile(JSON.stringify(response.data))
-                window.location.reload()
+                reset()
             } catch (error: any) {
                 setIsVisibile(error.message)
             }
