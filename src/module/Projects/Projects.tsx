@@ -14,7 +14,7 @@ import { ProjectProps } from './Project.types';
 
 export function Projects({ project }: { project?: ProjectProps }) {
 
-    const [isVisibile, setIsVisibile] = useState<string>()
+    const [isVisibile, setIsVisibile] = useState<any>([])
 
     const { control, handleSubmit, reset, formState: { dirtyFields } } = useForm()
 
@@ -24,7 +24,7 @@ export function Projects({ project }: { project?: ProjectProps }) {
             for (let i in data) if (i in dirtyFields) newData[i] = data[i]
             try {
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}projects`, { ...newData, preview_image: 'preview_image' in newData ? `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` : undefined })
-                setIsVisibile(JSON.stringify(response.data))
+                setIsVisibile(Object.entries(response.data))
                 reset()
             } catch (error: any) {
                 setIsVisibile(error.message)
@@ -105,12 +105,13 @@ export function Projects({ project }: { project?: ProjectProps }) {
             <Controller
                 control={control}
                 name="access"
-                defaultValue={project?.access ?? 'work'}
+                defaultValue={project?.access ?? 'Не выбрано'}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <div className={s.form__selectors}>
                             <h2>доступ (селектор: work, not_work, beta, closed)</h2>
                             <select className={s.form__select} value={value} onChange={onChange}>
+                                <option disabled value="Не выбрано">Не выбрано</option>
                                 <option value="work">work</option>
                                 <option value="not_work">not_work</option>
                                 <option value="beta">beta</option>

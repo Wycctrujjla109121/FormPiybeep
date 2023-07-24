@@ -119,11 +119,12 @@ export function Services({ service }: { service?: ServiceProps }) {
             <Controller
                 control={control}
                 name="type"
-                defaultValue={service?.type ?? 'service'}
+                defaultValue={service?.type ?? 'Не выбрано'}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <h1>Тип</h1>
                         <select value={value} onChange={onChange}>
+                            <option disabled value="Не выбрано">Не выбрано</option>
                             <option value="service">service</option>
                             <option value="support">support</option>
                             <option value="other">other</option>
