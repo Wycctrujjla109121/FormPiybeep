@@ -21,7 +21,6 @@ export function Reviews({ review }: { review?: ReviewProps }) {
         if (!review) {
             let newData: any = {}
             for (let i in data) if (i in dirtyFields) newData[i] = data[i]
-            console.log(newData)
             try {
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}reviews`, { ...newData })
                 setRes(response.data)
@@ -32,16 +31,18 @@ export function Reviews({ review }: { review?: ReviewProps }) {
                 setRes(undefined)
             }
         }
-        let newData: any = {}
-        for (let i in data) if (i in dirtyFields) newData[i] = data[i]
-        try {
-            const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}reviews/${review?.id}`, { ...newData })
-            setRes(response.data)
-            setError(undefined)
-            window.location.reload()
-        } catch (error: any) {
-            setError(error.message)
-            setRes(undefined)
+        else {
+            let newData: any = {}
+            for (let i in data) if (i in dirtyFields) newData[i] = data[i]
+            try {
+                const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}reviews/${review?.id}`, { ...newData })
+                setRes(response.data)
+                setError(undefined)
+                window.location.reload()
+            } catch (error: any) {
+                setError(error.message)
+                setRes(undefined)
+            }
         }
     })
 
