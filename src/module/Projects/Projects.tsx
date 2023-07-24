@@ -37,7 +37,7 @@ export function Projects({ project }: { project?: ProjectProps }) {
                 setIsVisibile(JSON.stringify(response.data))
                 window.location.reload()
             } catch (error: any) {
-                setIsVisibile(error.message)
+                console.error(error.message)
             }
         }
     })

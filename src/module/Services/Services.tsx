@@ -9,27 +9,45 @@ import axios from 'axios';
 import { Input } from '@/components';
 
 import s from './Services.module.scss'
+import { ServiceProps } from './Services.types';
 
-export function Services() {
+export function Services({ service }: { service: ServiceProps }) {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
     const { control, handleSubmit, reset, formState: { dirtyFields } } = useForm()
 
     const onSubmit = (async (data: any) => {
-        let newData: any = {}
-        for (let i in data) if (i in dirtyFields) newData[i] = data[i]
-        try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services`,
-                {
-                    ...newData,
-                    price: 'price' in newData ? Number(data.price) : undefined,
-                    discount: 'discount' in newData ? Number(data.discount) : undefined
-                })
-            setIsVisibile(JSON.stringify(response.data))
-            reset()
-        } catch (error: any) {
-            setIsVisibile(error.message)
+        if (!service) {
+            let newData: any = {}
+            for (let i in data) if (i in dirtyFields) newData[i] = data[i]
+            try {
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services`,
+                    {
+                        ...newData,
+                        price: 'price' in newData ? Number(data.price) : undefined,
+                        discount: 'discount' in newData ? Number(data.discount) : undefined
+                    })
+                setIsVisibile(JSON.stringify(response.data))
+                reset()
+            } catch (error: any) {
+                setIsVisibile(error.message)
+            }
+        } else {
+            let newData: any = {}
+            for (let i in data) if (i in dirtyFields) newData[i] = data[i]
+            try {
+                const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}services`,
+                    {
+                        ...newData,
+                        price: 'price' in newData ? Number(data.price) : undefined,
+                        discount: 'discount' in newData ? Number(data.discount) : undefined
+                    })
+                setIsVisibile(JSON.stringify(response.data))
+                window.location.reload()
+            } catch (error: any) {
+                console.error(error.message)
+            }
         }
     })
 
@@ -38,7 +56,7 @@ export function Services() {
             <Controller
                 control={control}
                 name="name"
-                defaultValue={''}
+                defaultValue={service?.name ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -52,6 +70,7 @@ export function Services() {
             <Controller
                 control={control}
                 name="description"
+                defaultValue={service?.description ?? ''}
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
                         <h2>Описание</h2>
@@ -68,7 +87,7 @@ export function Services() {
             <Controller
                 control={control}
                 name="price"
-                defaultValue={''}
+                defaultValue={service?.price ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -84,7 +103,7 @@ export function Services() {
             <Controller
                 control={control}
                 name="discount"
-                defaultValue={''}
+                defaultValue={service?.discount ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -99,7 +118,7 @@ export function Services() {
             <Controller
                 control={control}
                 name="type"
-                defaultValue={'service'}
+                defaultValue={service?.type ?? 'service'}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <h1>Тип</h1>
@@ -114,7 +133,7 @@ export function Services() {
             <Controller
                 control={control}
                 name="isHide"
-                defaultValue={false}
+                defaultValue={service?.isHide ?? false}
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
                         <h1>Скрыто из списка</h1>
@@ -125,7 +144,7 @@ export function Services() {
             />
             <Controller
                 control={control}
-                defaultValue={false}
+                defaultValue={service?.idAvailable ?? false}
                 name="isAvailable"
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>

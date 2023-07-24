@@ -8,24 +8,35 @@ import { Input } from "@/components";
 import s from './Reviews.module.scss'
 import axios from "axios";
 
-export function Reviews() {
+import { ReviewProps } from "./Review.types";
+
+export function Reviews({ review }: { review?: ReviewProps }) {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
-    const { control, handleSubmit, reset, getValues, formState: { dirtyFields } } = useForm()
+    const { control, handleSubmit, reset, formState: { dirtyFields } } = useForm()
 
     const onSubmit = (async (data: any) => {
-        let newDirtyFields = Object.entries(dirtyFields)
-        newDirtyFields.map(current => {
-            current[1] = getValues(current[0])
-        })
-        let dirtyFialdsObject = Object.fromEntries(newDirtyFields);
+        if (!review) {
+            let newData: any = {}
+            for (let i in data) if (i in dirtyFields) newData[i] = data[i]
+            console.log(newData)
+            try {
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}reviews`, { ...newData })
+                setIsVisibile(JSON.stringify(response.data))
+                reset()
+            } catch (error: any) {
+                setIsVisibile(error.message)
+            }
+        }
+        let newData: any = {}
+        for (let i in data) if (i in dirtyFields) newData[i] = data[i]
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}reviews`, { ...dirtyFialdsObject })
+            const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}reviews`, { ...newData })
             setIsVisibile(JSON.stringify(response.data))
-            reset()
+            window.location.reload()
         } catch (error: any) {
-            setIsVisibile(error.message)
+            console.error(error.message)
         }
     })
 
