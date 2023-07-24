@@ -26,9 +26,11 @@ export function Projects({ project }: { project?: ProjectProps }) {
             try {
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}projects`, { ...newData, preview_image: 'preview_image' in newData ? `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` : undefined })
                 setRes(response.data)
+                setError(undefined)
                 reset()
             } catch (error: any) {
                 setError(error.message)
+                setRes(undefined)
             }
         } else {
             try {
@@ -36,9 +38,11 @@ export function Projects({ project }: { project?: ProjectProps }) {
                 for (let i in data) if (i in dirtyFields) newData[i] = data[i]
                 const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}projects/${project.id}`, { ...newData, preview_image: 'preview_image' in newData ? `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` : project.preview_image })
                 setRes(response.data)
+                setError(undefined)
                 window.location.reload()
             } catch (error: any) {
                 setError(error.message)
+                setRes(undefined)
             }
         }
     })

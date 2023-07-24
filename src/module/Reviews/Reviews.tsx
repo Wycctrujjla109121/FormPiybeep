@@ -25,9 +25,11 @@ export function Reviews({ review }: { review?: ReviewProps }) {
             try {
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}reviews`, { ...newData })
                 setRes(response.data)
+                setError(undefined)
                 reset()
             } catch (error: any) {
                 setError(error.message)
+                setRes(undefined)
             }
         }
         let newData: any = {}
@@ -35,9 +37,11 @@ export function Reviews({ review }: { review?: ReviewProps }) {
         try {
             const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}reviews/${review?.id}`, { ...newData })
             setRes(response.data)
+            setError(undefined)
             window.location.reload()
         } catch (error: any) {
             setError(error.message)
+            setRes(undefined)
         }
     })
 

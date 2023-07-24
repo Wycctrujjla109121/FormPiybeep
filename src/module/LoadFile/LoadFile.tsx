@@ -23,8 +23,10 @@ export function LoadFile() {
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}files`, formData)
             setRes(response.data)
+            setError(undefined)
         } catch (error: any) {
             setError(error.message)
+            setRes(undefined)
         }
         reset()
     })

@@ -31,9 +31,11 @@ export function Services({ service }: { service?: ServiceProps }) {
                         discount: 'discount' in newData ? Number(data.discount) : undefined
                     })
                 setRes(response.data)
+                setError(undefined)
                 reset()
             } catch (error: any) {
                 setError(error.message)
+                setRes(undefined)
             }
         } else {
             let newData: any = {}
