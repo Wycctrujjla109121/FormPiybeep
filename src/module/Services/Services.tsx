@@ -21,6 +21,7 @@ export function Services({ service }: { service?: ServiceProps }) {
         if (!service) {
             let newData: any = {}
             for (let i in data) if (i in dirtyFields) newData[i] = data[i]
+            console.log(newData)
             try {
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services`,
                     {
@@ -124,7 +125,7 @@ export function Services({ service }: { service?: ServiceProps }) {
                         <h1>Тип</h1>
                         <select value={value} onChange={onChange}>
                             <option value="service">service</option>
-                            <option value="support">suppot</option>
+                            <option value="support">support</option>
                             <option value="other">other</option>
                         </select>
                     </div>
@@ -144,7 +145,7 @@ export function Services({ service }: { service?: ServiceProps }) {
             />
             <Controller
                 control={control}
-                defaultValue={service?.idAvailable ?? false}
+                defaultValue={service?.isAvailable ?? false}
                 name="isAvailable"
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
