@@ -10,21 +10,35 @@ import { Input } from '@/components';
 
 import s from './Projects.module.scss'
 
-export function Projects() {
+import { ProjectProps } from './Project.types';
+
+export function Projects({ project, change = true }: { project: ProjectProps, change?: boolean }) {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
-    const { control, handleSubmit, reset } = useForm()
+    const { control, handleSubmit, reset, formState: { dirtyFields } } = useForm()
 
     const onSubmit = (async (data: any) => {
-        console.log({ ...data, preview_image: `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` })
-        try {
-            console.log()
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}projects`, { ...data, preview_image: `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` })
-            setIsVisibile(JSON.stringify(response.data))
-            reset()
-        } catch (error: any) {
-            setIsVisibile(error.message)
+        if (!change) {
+            let newData: any = {}
+            for (let i in data) if (i in dirtyFields) newData[i] = data[i]
+            try {
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}projects`, { ...newData, preview_image: 'preview_image' in newData ? `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` : undefined })
+                setIsVisibile(JSON.stringify(response.data))
+                reset()
+            } catch (error: any) {
+                setIsVisibile(error.message)
+            }
+        } else {
+            try {
+                let newData: any = {}
+                for (let i in data) if (i in dirtyFields) newData[i] = data[i]
+                const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}projects/${project.id}`, { ...newData, preview_image: 'preview_image' in newData ? `${process.env.NEXT_PUBLIC_HOST}static/${data.preview_image}` : project.preview_image })
+                setIsVisibile(JSON.stringify(response.data))
+                reset()
+            } catch (error: any) {
+                setIsVisibile(error.message)
+            }
         }
     })
 
@@ -33,7 +47,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="title"
-                defaultValue={''}
+                defaultValue={project?.title ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -47,7 +61,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="subtitle"
-                defaultValue={''}
+                defaultValue={project?.subtitle ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -61,7 +75,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="preview_image"
-                defaultValue={''}
+                defaultValue={project?.preview_image ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -77,7 +91,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="customer"
-                defaultValue={''}
+                defaultValue={project?.customer ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -91,7 +105,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="access"
-                defaultValue={'work'}
+                defaultValue={project?.access ?? 'work'}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <div className={s.form__selectors}>
@@ -109,7 +123,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="link"
-                defaultValue={''}
+                defaultValue={project?.link ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -123,7 +137,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="task"
-                defaultValue={''}
+                defaultValue={project?.task ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -137,7 +151,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="about_company"
-                defaultValue={''}
+                defaultValue={project?.about_company ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -151,7 +165,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="about_service"
-                defaultValue={''}
+                defaultValue={project?.about_service ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -165,7 +179,7 @@ export function Projects() {
             <Controller
                 control={control}
                 name="text"
-                defaultValue={''}
+                defaultValue={project?.text ?? ''}
                 render={({ field: { value, onChange } }) => (
                     <div className={s.form__info}>
                         <div className={s.form__editor}>

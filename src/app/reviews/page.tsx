@@ -1,9 +1,9 @@
-import { Projects } from "@/module";
+import { Reviews } from "@/module";
 
 export default function page() {
     return (
         <>
-            <Projects />
+            <Reviews />
         </>
     );
 };

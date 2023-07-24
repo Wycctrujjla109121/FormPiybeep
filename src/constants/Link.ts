@@ -1,9 +1,5 @@
 export const HEADER_LINK = [
     {
-        text: 'Типы услуг',
-        link: '/typeServices'
-    },
-    {
         text: 'Загрузка файлов',
         link: '/loadFile'
     },
@@ -14,5 +10,9 @@ export const HEADER_LINK = [
     {
         text: 'Прокеты',
         link: '/projects'
+    },
+    {
+        text: 'Отзывы',
+        link: '/reviews'
     },
 ]

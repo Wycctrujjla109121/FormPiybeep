@@ -14,12 +14,18 @@ export function Services() {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
-    const { control, handleSubmit, reset } = useForm()
+    const { control, handleSubmit, reset, formState: { dirtyFields } } = useForm()
 
     const onSubmit = (async (data: any) => {
+        let newData: any = {}
+        for (let i in data) if (i in dirtyFields) newData[i] = data[i]
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}services`,
-                { ...data, price: Number(data.price), discount: Number(data.discount) })
+                {
+                    ...newData,
+                    price: 'price' in newData ? Number(data.price) : undefined,
+                    discount: 'discount' in newData ? Number(data.discount) : undefined
+                })
             setIsVisibile(JSON.stringify(response.data))
             reset()
         } catch (error: any) {
