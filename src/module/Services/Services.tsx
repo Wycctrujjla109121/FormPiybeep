@@ -13,7 +13,8 @@ import { ServiceProps } from './Services.types';
 
 export function Services({ service }: { service?: ServiceProps }) {
 
-    const [isVisibile, setIsVisibile] = useState<string>()
+    const [error, setError] = useState<string>()
+    const [res, setRes] = useState<object>()
 
     const { control, handleSubmit, reset, formState: { dirtyFields } } = useForm()
 
@@ -29,10 +30,10 @@ export function Services({ service }: { service?: ServiceProps }) {
                         price: 'price' in newData ? Number(data.price) : undefined,
                         discount: 'discount' in newData ? Number(data.discount) : undefined
                     })
-                setIsVisibile(JSON.stringify(response.data))
+                setRes(response.data)
                 reset()
             } catch (error: any) {
-                setIsVisibile(error.message)
+                setError(error.message)
             }
         } else {
             let newData: any = {}
@@ -44,10 +45,10 @@ export function Services({ service }: { service?: ServiceProps }) {
                         price: 'price' in newData ? Number(data.price) : undefined,
                         discount: 'discount' in newData ? Number(data.discount) : undefined
                     })
-                setIsVisibile(JSON.stringify(response.data))
+                setRes(response.data)
                 window.location.reload()
             } catch (error: any) {
-                console.error(error.message)
+                setError(error)
             }
         }
     })
@@ -157,7 +158,21 @@ export function Services({ service }: { service?: ServiceProps }) {
                 )}
             />
             <button className={s.form__button} type='submit'>Сохранить</button>
-            <h1 className={s.title}>{isVisibile}</h1>
-        </form>
+            <div className={s.list}>
+                <h2 className={s.list__error} style={{ display: error ? 'flex' : 'none' }}>
+                    <span className={s.list__span}>Ошибка:</span>
+                    <span className={s.list__span}>{error}</span>
+                </h2>
+                <div className={s.list__info} style={{ display: res ? 'flex' : 'none' }}>
+                    <h1 className={s.list__title}>Данные: </h1>
+                    {
+                        res &&
+                        Object.entries(res).map((current) => (
+                            <p className={s.list__item}>{current[0] + ' ' + current[1]}</p>
+                        ))
+                    }
+                </div>
+            </div>
+        </form >
     );
 };
