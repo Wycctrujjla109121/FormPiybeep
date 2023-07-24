@@ -78,7 +78,7 @@ export function Reviews({ review }: { review?: ReviewProps }) {
                     <div className={s.form__info}>
                         <Input
                             value={value}
-                            placeholder='id'
+                            placeholder='id проекта'
                             onChange={onChange}
                         />
                     </div>
