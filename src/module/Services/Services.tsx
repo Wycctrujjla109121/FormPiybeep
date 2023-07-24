@@ -124,7 +124,7 @@ export function Services({ service }: { service?: ServiceProps }) {
                         <h1>Тип</h1>
                         <select value={value} onChange={onChange}>
                             <option value="service">service</option>
-                            <option value="suppot">suppot</option>
+                            <option value="support">suppot</option>
                             <option value="other">other</option>
                         </select>
                     </div>
