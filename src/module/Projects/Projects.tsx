@@ -12,14 +12,14 @@ import s from './Projects.module.scss'
 
 import { ProjectProps } from './Project.types';
 
-export function Projects({ project, change = true }: { project: ProjectProps, change?: boolean }) {
+export function Projects({ project }: { project?: ProjectProps }) {
 
     const [isVisibile, setIsVisibile] = useState<string>()
 
     const { control, handleSubmit, reset, formState: { dirtyFields } } = useForm()
 
     const onSubmit = (async (data: any) => {
-        if (!change) {
+        if (!project) {
             let newData: any = {}
             for (let i in data) if (i in dirtyFields) newData[i] = data[i]
             try {

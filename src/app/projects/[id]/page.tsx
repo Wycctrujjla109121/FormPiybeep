@@ -7,7 +7,7 @@ export default async function page(props: any) {
     return (
         <>
             <h1>Редактирование</h1>
-            <Projects project={res.data} change={true} />
+            <Projects project={res.data} />
         </>
     );
 };
