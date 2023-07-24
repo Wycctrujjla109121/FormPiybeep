@@ -73,7 +73,7 @@ export function Reviews({ review }: { review?: ReviewProps }) {
             <Controller
                 control={control}
                 name="projectId"
-                defaultValue={review?.id ?? ''}
+                defaultValue={review?.projectId ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
