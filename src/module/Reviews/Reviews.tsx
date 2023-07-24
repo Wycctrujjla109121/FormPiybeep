@@ -32,7 +32,7 @@ export function Reviews({ review }: { review?: ReviewProps }) {
         let newData: any = {}
         for (let i in data) if (i in dirtyFields) newData[i] = data[i]
         try {
-            const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}reviews`, { ...newData })
+            const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}reviews/${review?.id}`, { ...newData })
             setIsVisibile(JSON.stringify(response.data))
             window.location.reload()
         } catch (error: any) {

@@ -37,7 +37,7 @@ export function Services({ service }: { service?: ServiceProps }) {
             let newData: any = {}
             for (let i in data) if (i in dirtyFields) newData[i] = data[i]
             try {
-                const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}services`,
+                const response = await axios.patch(`${process.env.NEXT_PUBLIC_HOST}services/${service.id}`,
                     {
                         ...newData,
                         price: 'price' in newData ? Number(data.price) : undefined,
