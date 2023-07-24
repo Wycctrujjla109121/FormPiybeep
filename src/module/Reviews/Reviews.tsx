@@ -45,7 +45,7 @@ export function Reviews({ review }: { review?: ReviewProps }) {
             <Controller
                 control={control}
                 name="author"
-                defaultValue={''}
+                defaultValue={review?.author ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -59,7 +59,7 @@ export function Reviews({ review }: { review?: ReviewProps }) {
             <Controller
                 control={control}
                 name="text"
-                defaultValue={''}
+                defaultValue={review?.text ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
@@ -73,7 +73,7 @@ export function Reviews({ review }: { review?: ReviewProps }) {
             <Controller
                 control={control}
                 name="projectId"
-                defaultValue={''}
+                defaultValue={review?.id ?? ''}
                 render={({ field: { onChange, value } }) => (
                     <div className={s.form__info}>
                         <Input
